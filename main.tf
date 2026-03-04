@@ -16,6 +16,7 @@ resource "google_service_account" "github_actions" {
 }
 
 resource "google_project_iam_member" "github_sa_roles" {
+ project = var.project_id
   for_each = toset([
     "roles/compute.admin",
     "roles/storage.admin",
