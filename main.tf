@@ -12,6 +12,7 @@ resource "google_project_service" "required_apis" {
 resource "google_service_account" "github_actions" {
   account_id   = "github-actions-sa"
   display_name = "GitHub Actions Service Account"
+  depends_on = [google_project_service.required_apis]
 }
 
 resource "google_project_iam_member" "github_sa_roles" {
@@ -30,6 +31,7 @@ resource "google_project_iam_member" "github_sa_roles" {
 resource "google_iam_workload_identity_pool" "github_pool" {
   workload_identity_pool_id = "github-pool"
   display_name              = "GitHub Pool"
+  depends_on = [google_project_service.required_apis]
 }
 
 resource "google_iam_workload_identity_pool_provider" "github_provider" {
